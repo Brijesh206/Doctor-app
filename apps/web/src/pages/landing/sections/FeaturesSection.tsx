@@ -1,7 +1,7 @@
 import {
   FaUserInjured, FaUserMd, FaPills, FaCalendarCheck,
   FaNotesMedical, FaChartBar, FaShieldAlt, FaBell,
-  FaLock, FaMobile,
+  FaMobile,
 } from 'react-icons/fa';
 
 const features = [
