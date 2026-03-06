@@ -1,7 +1,7 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import {
 	FaArrowRight,
 	FaEnvelope,
@@ -10,24 +10,24 @@ import {
 	FaPills,
 	FaUserInjured,
 	FaUserMd,
-} from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
-import { useAuth } from '../../context/AuthContext';
+} from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { useAuth } from "../../context/AuthContext";
 
 const schema = yup.object({
-	email: yup.string().email('Invalid email').required('Email required'),
+	email: yup.string().email("Invalid email").required("Email required"),
 	password: yup
 		.string()
-		.min(6, 'Min 6 characters')
-		.required('Password required'),
+		.min(6, "Min 6 characters")
+		.required("Password required"),
 });
 type FormData = { email: string; password: string };
 
 const features = [
-	{ icon: FaUserMd, label: 'Manage Doctors & Staff' },
-	{ icon: FaUserInjured, label: 'Patient Records & History' },
-	{ icon: FaPills, label: 'Prescription & Medicine Tracking' },
+	{ icon: FaUserMd, label: "Manage Doctors & Staff" },
+	{ icon: FaUserInjured, label: "Patient Records & History" },
+	{ icon: FaPills, label: "Prescription & Medicine Tracking" },
 ];
 
 export default function LoginPage() {
@@ -44,10 +44,10 @@ export default function LoginPage() {
 		setLoading(true);
 		try {
 			await login(data.email, data.password);
-			toast.success('Welcome back!');
-			navigate('/dashboard');
+			toast.success("Welcome back!");
+			navigate("/dashboard");
 		} catch {
-			toast.error('Invalid credentials. Please try again.');
+			toast.error("Invalid credentials. Please try again.");
 		} finally {
 			setLoading(false);
 		}
@@ -157,7 +157,7 @@ export default function LoginPage() {
 								<div className="relative">
 									<FaEnvelope className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 									<input
-										{...register('email')}
+										{...register("email")}
 										type="email"
 										placeholder="admin@hospital.com"
 										className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all hover:border-gray-300"
@@ -185,7 +185,7 @@ export default function LoginPage() {
 								<div className="relative">
 									<FaLock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 									<input
-										{...register('password')}
+										{...register("password")}
 										type="password"
 										placeholder="••••••••"
 										className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all hover:border-gray-300"
@@ -214,7 +214,7 @@ export default function LoginPage() {
 						</form>
 
 						<p className="mt-6 text-center text-sm text-gray-500">
-							Don't have an account?{' '}
+							Don't have an account?{" "}
 							<Link
 								to="/signup"
 								className="text-primary-600 hover:text-primary-700 font-semibold"

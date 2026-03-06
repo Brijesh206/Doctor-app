@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
-import { FaCheckCircle, FaHospital, FaLock } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import type React from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { FaCheckCircle, FaHospital, FaLock } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ResetPasswordPage() {
 	const navigate = useNavigate();
-	const [password, setPassword] = useState('');
-	const [confirm, setConfirm] = useState('');
+	const [password, setPassword] = useState("");
+	const [confirm, setConfirm] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [done, setDone] = useState(false);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (password !== confirm) {
-			toast.error('Passwords do not match');
+			toast.error("Passwords do not match");
 			return;
 		}
 		if (password.length < 6) {
-			toast.error('Password must be at least 6 characters');
+			toast.error("Password must be at least 6 characters");
 			return;
 		}
 		setLoading(true);
 		await new Promise((r) => setTimeout(r, 800));
 		setDone(true);
-		toast.success('Password reset successfully!');
+		toast.success("Password reset successfully!");
 		setLoading(false);
-		setTimeout(() => navigate('/login'), 2000);
+		setTimeout(() => navigate("/login"), 2000);
 	};
 
 	return (
@@ -101,7 +102,7 @@ export default function ResetPasswordPage() {
 									{loading ? (
 										<span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
 									) : (
-										'Reset Password'
+										"Reset Password"
 									)}
 								</button>
 							</form>

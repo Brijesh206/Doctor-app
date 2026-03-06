@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import {
 	FaEdit,
 	FaExclamationTriangle,
@@ -8,42 +8,42 @@ import {
 	FaPlus,
 	FaSearch,
 	FaTrash,
-} from 'react-icons/fa';
-import Badge from '../../components/ui/Badge';
-import Button from '../../components/ui/Button';
-import Modal from '../../components/ui/Modal';
-import Pagination from '../../components/ui/Pagination';
-import Table from '../../components/ui/Table';
-import type { Medicine } from '../../types';
-import { mockMedicines } from '../../utils/mockData';
+} from "react-icons/fa";
+import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
+import Modal from "../../components/ui/Modal";
+import Pagination from "../../components/ui/Pagination";
+import Table from "../../components/ui/Table";
+import type { Medicine } from "../../types";
+import { mockMedicines } from "../../utils/mockData";
 
 const ITEMS_PER_PAGE = 8;
 const CATEGORIES = [
-	'Antibiotic',
-	'Antidiabetic',
-	'Antihypertensive',
-	'Analgesic',
-	'Antihistamine',
-	'Proton Pump Inhibitor',
-	'Lipid Lowering',
-	'NSAID/Analgesic',
-	'Antiviral',
-	'Antifungal',
+	"Antibiotic",
+	"Antidiabetic",
+	"Antihypertensive",
+	"Analgesic",
+	"Antihistamine",
+	"Proton Pump Inhibitor",
+	"Lipid Lowering",
+	"NSAID/Analgesic",
+	"Antiviral",
+	"Antifungal",
 ];
 
 const stockVariant: Record<
 	string,
-	'success' | 'warning' | 'danger' | 'neutral'
+	"success" | "warning" | "danger" | "neutral"
 > = {
-	'In Stock': 'success',
-	'Low Stock': 'warning',
-	'Out of Stock': 'danger',
-	'Near Expiry': 'neutral',
+	"In Stock": "success",
+	"Low Stock": "warning",
+	"Out of Stock": "danger",
+	"Near Expiry": "neutral",
 };
 
 export default function MedicinesPage() {
 	const [medicines, setMedicines] = useState<Medicine[]>(mockMedicines);
-	const [search, setSearch] = useState('');
+	const [search, setSearch] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [editMed, setEditMed] = useState<Medicine | null>(null);
@@ -69,12 +69,12 @@ export default function MedicinesPage() {
 	const getStockStatus = (
 		stock: number,
 		expiry: string,
-	): Medicine['status'] => {
+	): Medicine["status"] => {
 		const daysToExpiry = (new Date(expiry).getTime() - Date.now()) / 86400000;
-		if (stock === 0) return 'Out of Stock';
-		if (daysToExpiry < 60) return 'Near Expiry';
-		if (stock < 20) return 'Low Stock';
-		return 'In Stock';
+		if (stock === 0) return "Out of Stock";
+		if (daysToExpiry < 60) return "Near Expiry";
+		if (stock < 20) return "Low Stock";
+		return "In Stock";
 	};
 
 	const openAdd = () => {
@@ -106,27 +106,27 @@ export default function MedicinesPage() {
 						: m,
 				),
 			);
-			toast.success('Medicine updated');
+			toast.success("Medicine updated");
 		} else {
 			setMedicines((ms) => [
 				{
 					...data,
-					id: `M${(ms.length + 1).toString().padStart(3, '0')}`,
+					id: `M${(ms.length + 1).toString().padStart(3, "0")}`,
 					stock: Number(data.stock),
 					price: Number(data.price),
 					status,
 				},
 				...ms,
 			]);
-			toast.success('Medicine added');
+			toast.success("Medicine added");
 		}
 		setModalOpen(false);
 	};
 
 	const columns = [
 		{
-			key: 'name',
-			header: 'Medicine',
+			key: "name",
+			header: "Medicine",
 			render: (m: Medicine) => (
 				<div className="flex items-center gap-2.5">
 					<div className="h-8 w-8 rounded-xl bg-violet-100 flex items-center justify-center">
@@ -140,20 +140,20 @@ export default function MedicinesPage() {
 			),
 		},
 		{
-			key: 'category',
-			header: 'Category',
+			key: "category",
+			header: "Category",
 			render: (m: Medicine) => <Badge variant="info">{m.category}</Badge>,
 		},
 		{
-			key: 'stock',
-			header: 'Stock',
+			key: "stock",
+			header: "Stock",
 			render: (m: Medicine) => (
 				<div className="flex items-center gap-2">
 					{m.stock < 20 && m.stock > 0 && (
 						<FaExclamationTriangle className="h-3 w-3 text-amber-400" />
 					)}
 					<span
-						className={`text-sm font-semibold ${m.stock === 0 ? 'text-rose-600' : m.stock < 20 ? 'text-amber-600' : 'text-gray-800'}`}
+						className={`text-sm font-semibold ${m.stock === 0 ? "text-rose-600" : m.stock < 20 ? "text-amber-600" : "text-gray-800"}`}
 					>
 						{m.stock} {m.unit}
 					</span>
@@ -161,8 +161,8 @@ export default function MedicinesPage() {
 			),
 		},
 		{
-			key: 'price',
-			header: 'Price',
+			key: "price",
+			header: "Price",
 			render: (m: Medicine) => (
 				<span className="font-mono text-sm font-medium">
 					${m.price.toFixed(2)}
@@ -170,15 +170,15 @@ export default function MedicinesPage() {
 			),
 		},
 		{
-			key: 'expiryDate',
-			header: 'Expiry',
+			key: "expiryDate",
+			header: "Expiry",
 			render: (m: Medicine) => {
 				const daysLeft = Math.floor(
 					(new Date(m.expiryDate).getTime() - Date.now()) / 86400000,
 				);
 				return (
 					<span
-						className={`text-sm ${daysLeft < 60 ? 'text-amber-600 font-medium' : 'text-gray-600'}`}
+						className={`text-sm ${daysLeft < 60 ? "text-amber-600 font-medium" : "text-gray-600"}`}
 					>
 						{m.expiryDate}
 					</span>
@@ -186,8 +186,8 @@ export default function MedicinesPage() {
 			},
 		},
 		{
-			key: 'status',
-			header: 'Status',
+			key: "status",
+			header: "Status",
 			render: (m: Medicine) => (
 				<Badge variant={stockVariant[m.status]} dot>
 					{m.status}
@@ -195,8 +195,8 @@ export default function MedicinesPage() {
 			),
 		},
 		{
-			key: 'actions',
-			header: 'Actions',
+			key: "actions",
+			header: "Actions",
 			render: (m: Medicine) => (
 				<div className="flex items-center gap-1">
 					<button
@@ -234,24 +234,24 @@ export default function MedicinesPage() {
 			<div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
 				{[
 					{
-						label: 'In Stock',
-						count: medicines.filter((m) => m.status === 'In Stock').length,
-						color: 'bg-emerald-50 text-emerald-700',
+						label: "In Stock",
+						count: medicines.filter((m) => m.status === "In Stock").length,
+						color: "bg-emerald-50 text-emerald-700",
 					},
 					{
-						label: 'Low Stock',
-						count: medicines.filter((m) => m.status === 'Low Stock').length,
-						color: 'bg-amber-50 text-amber-700',
+						label: "Low Stock",
+						count: medicines.filter((m) => m.status === "Low Stock").length,
+						color: "bg-amber-50 text-amber-700",
 					},
 					{
-						label: 'Out of Stock',
-						count: medicines.filter((m) => m.status === 'Out of Stock').length,
-						color: 'bg-rose-50 text-rose-700',
+						label: "Out of Stock",
+						count: medicines.filter((m) => m.status === "Out of Stock").length,
+						color: "bg-rose-50 text-rose-700",
 					},
 					{
-						label: 'Near Expiry',
-						count: medicines.filter((m) => m.status === 'Near Expiry').length,
-						color: 'bg-orange-50 text-orange-700',
+						label: "Near Expiry",
+						count: medicines.filter((m) => m.status === "Near Expiry").length,
+						color: "bg-orange-50 text-orange-700",
 					},
 				].map((c) => (
 					<div
@@ -299,7 +299,7 @@ export default function MedicinesPage() {
 			<Modal
 				isOpen={modalOpen}
 				onClose={() => setModalOpen(false)}
-				title={editMed ? 'Edit Medicine' : 'Add Medicine'}
+				title={editMed ? "Edit Medicine" : "Add Medicine"}
 				size="lg"
 				footer={
 					<>
@@ -307,7 +307,7 @@ export default function MedicinesPage() {
 							Cancel
 						</Button>
 						<Button onClick={handleSubmit(onSubmit)}>
-							{editMed ? 'Save' : 'Add Medicine'}
+							{editMed ? "Save" : "Add Medicine"}
 						</Button>
 					</>
 				}
@@ -318,7 +318,7 @@ export default function MedicinesPage() {
 							Medicine Name
 						</label>
 						<input
-							{...register('name')}
+							{...register("name")}
 							placeholder="Amoxicillin 500mg"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						/>
@@ -328,7 +328,7 @@ export default function MedicinesPage() {
 							Category
 						</label>
 						<select
-							{...register('category')}
+							{...register("category")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
 							{CATEGORIES.map((c) => (
@@ -343,7 +343,7 @@ export default function MedicinesPage() {
 							Manufacturer
 						</label>
 						<input
-							{...register('manufacturer')}
+							{...register("manufacturer")}
 							placeholder="PharmaCare Inc."
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						/>
@@ -353,7 +353,7 @@ export default function MedicinesPage() {
 							Stock Quantity
 						</label>
 						<input
-							{...register('stock')}
+							{...register("stock")}
 							type="number"
 							placeholder="100"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -364,16 +364,16 @@ export default function MedicinesPage() {
 							Unit
 						</label>
 						<select
-							{...register('unit')}
+							{...register("unit")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
 							{[
-								'Tablets',
-								'Capsules',
-								'Syrup (ml)',
-								'Injection (ml)',
-								'Cream (g)',
-								'Drops (ml)',
+								"Tablets",
+								"Capsules",
+								"Syrup (ml)",
+								"Injection (ml)",
+								"Cream (g)",
+								"Drops (ml)",
 							].map((u) => (
 								<option key={u} value={u}>
 									{u}
@@ -386,7 +386,7 @@ export default function MedicinesPage() {
 							Price ($)
 						</label>
 						<input
-							{...register('price')}
+							{...register("price")}
 							type="number"
 							step="0.01"
 							placeholder="10.00"
@@ -398,7 +398,7 @@ export default function MedicinesPage() {
 							Expiry Date
 						</label>
 						<input
-							{...register('expiryDate')}
+							{...register("expiryDate")}
 							type="date"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						/>
@@ -427,7 +427,7 @@ export default function MedicinesPage() {
 										ms.filter((m) => m.id !== deleteConfirm.id),
 									);
 									setDeleteConfirm(null);
-									toast.success('Medicine removed');
+									toast.success("Medicine removed");
 								}}
 							>
 								Delete

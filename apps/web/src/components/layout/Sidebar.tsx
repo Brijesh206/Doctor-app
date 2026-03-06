@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import clsx from "clsx";
 import {
 	FaBars,
 	FaCalendarCheck,
@@ -12,19 +12,19 @@ import {
 	FaTimes,
 	FaUserInjured,
 	FaUserMd,
-} from 'react-icons/fa';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+} from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const navItems = [
-	{ label: 'Dashboard', path: '/dashboard', icon: FaTachometerAlt },
-	{ label: 'Patients', path: '/patients', icon: FaUserInjured },
-	{ label: 'Doctors', path: '/doctors', icon: FaUserMd },
-	{ label: 'Medicines', path: '/medicines', icon: FaPills },
-	{ label: 'Prescriptions', path: '/prescriptions', icon: FaNotesMedical },
-	{ label: 'Appointments', path: '/appointments', icon: FaCalendarCheck },
-	{ label: 'Reports', path: '/reports', icon: FaChartBar },
-	{ label: 'Settings', path: '/settings', icon: FaCog },
+	{ label: "Dashboard", path: "/dashboard", icon: FaTachometerAlt },
+	{ label: "Patients", path: "/patients", icon: FaUserInjured },
+	{ label: "Doctors", path: "/doctors", icon: FaUserMd },
+	{ label: "Medicines", path: "/medicines", icon: FaPills },
+	{ label: "Prescriptions", path: "/prescriptions", icon: FaNotesMedical },
+	{ label: "Appointments", path: "/appointments", icon: FaCalendarCheck },
+	{ label: "Reports", path: "/reports", icon: FaChartBar },
+	{ label: "Settings", path: "/settings", icon: FaCog },
 ];
 
 interface SidebarProps {
@@ -45,7 +45,7 @@ export default function Sidebar({
 
 	const handleLogout = () => {
 		logout();
-		navigate('/login');
+		navigate("/login");
 	};
 
 	const SidebarContent = () => (
@@ -53,8 +53,8 @@ export default function Sidebar({
 			{/* Logo */}
 			<div
 				className={clsx(
-					'flex items-center gap-3 px-4 py-5 border-b border-gray-100',
-					collapsed ? 'justify-center' : '',
+					"flex items-center gap-3 px-4 py-5 border-b border-gray-100",
+					collapsed ? "justify-center" : "",
 				)}
 			>
 				<div className="flex-shrink-0 h-9 w-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-sm">
@@ -89,9 +89,9 @@ export default function Sidebar({
 						onClick={onMobileClose}
 						className={({ isActive }) =>
 							clsx(
-								'sidebar-link',
-								isActive ? 'sidebar-link-active' : 'sidebar-link-inactive',
-								collapsed && 'justify-center px-2',
+								"sidebar-link",
+								isActive ? "sidebar-link-active" : "sidebar-link-inactive",
+								collapsed && "justify-center px-2",
 							)
 						}
 						title={collapsed ? label : undefined}
@@ -115,12 +115,12 @@ export default function Sidebar({
 				<button
 					onClick={handleLogout}
 					className={clsx(
-						'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-rose-600 hover:bg-rose-50 transition-colors',
-						collapsed && 'justify-center px-2',
+						"w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-rose-600 hover:bg-rose-50 transition-colors",
+						collapsed && "justify-center px-2",
 					)}
 				>
 					<FaSignOutAlt className="h-4 w-4 flex-shrink-0" />
-					{!collapsed && 'Logout'}
+					{!collapsed && "Logout"}
 				</button>
 			</div>
 		</div>
@@ -144,8 +144,8 @@ export default function Sidebar({
 			{/* Desktop Sidebar */}
 			<aside
 				className={clsx(
-					'hidden lg:flex flex-col h-full bg-white border-r border-gray-100 transition-all duration-300 flex-shrink-0',
-					collapsed ? 'w-16' : 'w-60',
+					"hidden lg:flex flex-col h-full bg-white border-r border-gray-100 transition-all duration-300 flex-shrink-0",
+					collapsed ? "w-16" : "w-60",
 				)}
 			>
 				<SidebarContent />

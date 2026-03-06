@@ -1,5 +1,5 @@
-import clsx from 'clsx';
-import React from 'react';
+import clsx from "clsx";
+import type React from "react";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
@@ -19,7 +19,7 @@ export default function Input({
 	id,
 	...props
 }: InputProps) {
-	const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
+	const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
 
 	return (
 		<div className="w-full">
@@ -41,14 +41,14 @@ export default function Input({
 				<input
 					id={inputId}
 					className={clsx(
-						'w-full rounded-xl border bg-white text-gray-900 placeholder-gray-400 text-sm transition-all duration-200',
-						'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent',
+						"w-full rounded-xl border bg-white text-gray-900 placeholder-gray-400 text-sm transition-all duration-200",
+						"focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent",
 						error
-							? 'border-rose-400 focus:ring-rose-400'
-							: 'border-gray-200 hover:border-gray-300',
-						leftIcon ? 'pl-10' : 'pl-4',
-						rightIcon ? 'pr-10' : 'pr-4',
-						'py-2.5',
+							? "border-rose-400 focus:ring-rose-400"
+							: "border-gray-200 hover:border-gray-300",
+						leftIcon ? "pl-10" : "pl-4",
+						rightIcon ? "pr-10" : "pr-4",
+						"py-2.5",
 						className,
 					)}
 					{...props}

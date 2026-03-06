@@ -1,36 +1,36 @@
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { FaEye, FaNotesMedical, FaPlus, FaSearch } from 'react-icons/fa';
-import Badge from '../../components/ui/Badge';
-import Button from '../../components/ui/Button';
-import Modal from '../../components/ui/Modal';
-import Table from '../../components/ui/Table';
-import type { Prescription, PrescriptionMedicine } from '../../types';
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { FaEye, FaNotesMedical, FaPlus, FaSearch } from "react-icons/fa";
+import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
+import Modal from "../../components/ui/Modal";
+import Table from "../../components/ui/Table";
+import type { Prescription, PrescriptionMedicine } from "../../types";
 import {
 	mockDoctors,
 	mockMedicines,
 	mockPatients,
 	mockPrescriptions,
-} from '../../utils/mockData';
+} from "../../utils/mockData";
 
-const statusVariant: Record<string, 'success' | 'info' | 'danger'> = {
-	Active: 'success',
-	Completed: 'info',
-	Cancelled: 'danger',
+const statusVariant: Record<string, "success" | "info" | "danger"> = {
+	Active: "success",
+	Completed: "info",
+	Cancelled: "danger",
 };
 
 export default function PrescriptionsPage() {
 	const [prescriptions, setPrescriptions] =
 		useState<Prescription[]>(mockPrescriptions);
-	const [search, setSearch] = useState('');
+	const [search, setSearch] = useState("");
 	const [viewRx, setViewRx] = useState<Prescription | null>(null);
 	const [createOpen, setCreateOpen] = useState(false);
 	const [selectedMeds, setSelectedMeds] = useState<PrescriptionMedicine[]>([]);
 	const [form, setForm] = useState({
-		patientId: '',
-		doctorId: '',
-		diagnosis: '',
-		notes: '',
+		patientId: "",
+		doctorId: "",
+		diagnosis: "",
+		notes: "",
 	});
 
 	const filtered = prescriptions.filter(
@@ -44,11 +44,11 @@ export default function PrescriptionsPage() {
 		setSelectedMeds((sm) => [
 			...sm,
 			{
-				medicineId: '',
-				medicineName: '',
-				dosage: '',
-				frequency: '',
-				duration: '',
+				medicineId: "",
+				medicineName: "",
+				dosage: "",
+				frequency: "",
+				duration: "",
 			},
 		]);
 	const updateMed = (
@@ -59,9 +59,9 @@ export default function PrescriptionsPage() {
 		setSelectedMeds((sm) =>
 			sm.map((m, idx) => {
 				if (idx !== i) return m;
-				if (field === 'medicineId') {
+				if (field === "medicineId") {
 					const med = mockMedicines.find((x) => x.id === val);
-					return { ...m, medicineId: val, medicineName: med?.name || '' };
+					return { ...m, medicineId: val, medicineName: med?.name || "" };
 				}
 				return { ...m, [field]: val };
 			}),
@@ -70,34 +70,34 @@ export default function PrescriptionsPage() {
 
 	const handleCreate = () => {
 		if (!form.patientId || !form.doctorId || !form.diagnosis) {
-			toast.error('Please fill required fields');
+			toast.error("Please fill required fields");
 			return;
 		}
 		const patient = mockPatients.find((p) => p.id === form.patientId);
 		const doctor = mockDoctors.find((d) => d.id === form.doctorId);
 		const newRx: Prescription = {
-			id: `RX${(prescriptions.length + 1).toString().padStart(3, '0')}`,
+			id: `RX${(prescriptions.length + 1).toString().padStart(3, "0")}`,
 			patientId: form.patientId,
-			patientName: patient?.name || '',
+			patientName: patient?.name || "",
 			doctorId: form.doctorId,
-			doctorName: doctor?.name || '',
-			date: new Date().toISOString().split('T')[0],
+			doctorName: doctor?.name || "",
+			date: new Date().toISOString().split("T")[0],
 			diagnosis: form.diagnosis,
 			medicines: selectedMeds,
 			notes: form.notes,
-			status: 'Active',
+			status: "Active",
 		};
 		setPrescriptions((ps) => [newRx, ...ps]);
-		toast.success('Prescription created');
+		toast.success("Prescription created");
 		setCreateOpen(false);
-		setForm({ patientId: '', doctorId: '', diagnosis: '', notes: '' });
+		setForm({ patientId: "", doctorId: "", diagnosis: "", notes: "" });
 		setSelectedMeds([]);
 	};
 
 	const columns = [
 		{
-			key: 'id',
-			header: 'Rx ID',
+			key: "id",
+			header: "Rx ID",
 			render: (p: Prescription) => (
 				<span className="font-mono text-xs font-semibold text-primary-600">
 					{p.id}
@@ -105,8 +105,8 @@ export default function PrescriptionsPage() {
 			),
 		},
 		{
-			key: 'patientName',
-			header: 'Patient',
+			key: "patientName",
+			header: "Patient",
 			render: (p: Prescription) => (
 				<div>
 					<p className="text-sm font-semibold text-gray-900">{p.patientName}</p>
@@ -115,38 +115,38 @@ export default function PrescriptionsPage() {
 			),
 		},
 		{
-			key: 'doctorName',
-			header: 'Doctor',
+			key: "doctorName",
+			header: "Doctor",
 			render: (p: Prescription) => (
 				<span className="text-sm text-gray-700">{p.doctorName}</span>
 			),
 		},
 		{
-			key: 'diagnosis',
-			header: 'Diagnosis',
+			key: "diagnosis",
+			header: "Diagnosis",
 			render: (p: Prescription) => (
 				<span className="text-sm text-gray-700">{p.diagnosis}</span>
 			),
 		},
 		{
-			key: 'date',
-			header: 'Date',
+			key: "date",
+			header: "Date",
 			render: (p: Prescription) => (
 				<span className="text-sm text-gray-600">{p.date}</span>
 			),
 		},
 		{
-			key: 'medicines',
-			header: 'Medicines',
+			key: "medicines",
+			header: "Medicines",
 			render: (p: Prescription) => (
 				<span className="text-sm text-gray-600">
-					{p.medicines.length} item{p.medicines.length !== 1 ? 's' : ''}
+					{p.medicines.length} item{p.medicines.length !== 1 ? "s" : ""}
 				</span>
 			),
 		},
 		{
-			key: 'status',
-			header: 'Status',
+			key: "status",
+			header: "Status",
 			render: (p: Prescription) => (
 				<Badge variant={statusVariant[p.status]} dot>
 					{p.status}
@@ -154,8 +154,8 @@ export default function PrescriptionsPage() {
 			),
 		},
 		{
-			key: 'actions',
-			header: '',
+			key: "actions",
+			header: "",
 			render: (p: Prescription) => (
 				<button
 					onClick={() => setViewRx(p)}
@@ -220,10 +220,10 @@ export default function PrescriptionsPage() {
 					<div className="space-y-4">
 						<div className="grid grid-cols-2 gap-3">
 							{[
-								['Patient', viewRx.patientName],
-								['Doctor', viewRx.doctorName],
-								['Date', viewRx.date],
-								['Diagnosis', viewRx.diagnosis],
+								["Patient", viewRx.patientName],
+								["Doctor", viewRx.doctorName],
+								["Date", viewRx.date],
+								["Diagnosis", viewRx.diagnosis],
 							].map(([k, v]) => (
 								<div key={k} className="bg-surface-secondary rounded-xl p-3">
 									<p className="text-xs text-gray-500">{k}</p>
@@ -360,7 +360,7 @@ export default function PrescriptionsPage() {
 								<div className="col-span-2">
 									<select
 										value={m.medicineId}
-										onChange={(e) => updateMed(i, 'medicineId', e.target.value)}
+										onChange={(e) => updateMed(i, "medicineId", e.target.value)}
 										className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
 									>
 										<option value="">Select medicine…</option>
@@ -373,19 +373,19 @@ export default function PrescriptionsPage() {
 								</div>
 								<input
 									value={m.dosage}
-									onChange={(e) => updateMed(i, 'dosage', e.target.value)}
+									onChange={(e) => updateMed(i, "dosage", e.target.value)}
 									placeholder="Dosage"
 									className="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
 								/>
 								<input
 									value={m.frequency}
-									onChange={(e) => updateMed(i, 'frequency', e.target.value)}
+									onChange={(e) => updateMed(i, "frequency", e.target.value)}
 									placeholder="Frequency"
 									className="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
 								/>
 								<input
 									value={m.duration}
-									onChange={(e) => updateMed(i, 'duration', e.target.value)}
+									onChange={(e) => updateMed(i, "duration", e.target.value)}
 									placeholder="Duration (e.g. 7 days)"
 									className="col-span-2 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
 								/>

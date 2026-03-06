@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useState } from "react";
+import toast from "react-hot-toast";
 import {
 	FaChartBar,
 	FaDownload,
 	FaFileCsv,
 	FaNotesMedical,
 	FaUserInjured,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 import {
 	CartesianGrid,
 	Legend,
@@ -16,46 +16,46 @@ import {
 	Tooltip,
 	XAxis,
 	YAxis,
-} from 'recharts';
+} from "recharts";
 
-import Button from '../../components/ui/Button';
+import Button from "../../components/ui/Button";
 import {
 	mockAppointments,
 	mockPatients,
 	mockPrescriptions,
-} from '../../utils/mockData';
+} from "../../utils/mockData";
 
 const monthlyData = [
-	{ month: 'Sep', patients: 145, prescriptions: 89, appointments: 120 },
-	{ month: 'Oct', patients: 178, prescriptions: 112, appointments: 155 },
-	{ month: 'Nov', patients: 162, prescriptions: 98, appointments: 140 },
-	{ month: 'Dec', patients: 195, prescriptions: 130, appointments: 175 },
-	{ month: 'Jan', patients: 220, prescriptions: 145, appointments: 198 },
-	{ month: 'Feb', patients: 248, prescriptions: 162, appointments: 220 },
-	{ month: 'Mar', patients: 267, prescriptions: 178, appointments: 242 },
+	{ month: "Sep", patients: 145, prescriptions: 89, appointments: 120 },
+	{ month: "Oct", patients: 178, prescriptions: 112, appointments: 155 },
+	{ month: "Nov", patients: 162, prescriptions: 98, appointments: 140 },
+	{ month: "Dec", patients: 195, prescriptions: 130, appointments: 175 },
+	{ month: "Jan", patients: 220, prescriptions: 145, appointments: 198 },
+	{ month: "Feb", patients: 248, prescriptions: 162, appointments: 220 },
+	{ month: "Mar", patients: 267, prescriptions: 178, appointments: 242 },
 ];
 
 function downloadCSV(data: Record<string, unknown>[], filename: string) {
-	const headers = Object.keys(data[0]).join(',');
+	const headers = Object.keys(data[0]).join(",");
 	const rows = data.map((r) =>
 		Object.values(r)
 			.map((v) => `"${v}"`)
-			.join(','),
+			.join(","),
 	);
-	const csv = [headers, ...rows].join('\n');
-	const blob = new Blob([csv], { type: 'text/csv' });
+	const csv = [headers, ...rows].join("\n");
+	const blob = new Blob([csv], { type: "text/csv" });
 	const url = URL.createObjectURL(blob);
-	const a = document.createElement('a');
+	const a = document.createElement("a");
 	a.href = url;
-	a.download = filename + '.csv';
+	a.download = filename + ".csv";
 	a.click();
 	URL.revokeObjectURL(url);
 	toast.success(`${filename} downloaded!`);
 }
 
 export default function ReportsPage() {
-	const [activeTab, setActiveTab] = useState<'patients' | 'prescriptions'>(
-		'patients',
+	const [activeTab, setActiveTab] = useState<"patients" | "prescriptions">(
+		"patients",
 	);
 
 	return (
@@ -75,7 +75,7 @@ export default function ReportsPage() {
 						onClick={() =>
 							downloadCSV(
 								mockPatients as unknown as Record<string, unknown>[],
-								'patients_report',
+								"patients_report",
 							)
 						}
 						leftIcon={<FaFileCsv className="h-3.5 w-3.5" />}
@@ -87,7 +87,7 @@ export default function ReportsPage() {
 						onClick={() =>
 							downloadCSV(
 								mockPrescriptions as unknown as Record<string, unknown>[],
-								'prescriptions_report',
+								"prescriptions_report",
 							)
 						}
 						leftIcon={<FaDownload className="h-3.5 w-3.5" />}
@@ -101,31 +101,31 @@ export default function ReportsPage() {
 			<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
 				{[
 					{
-						label: 'Total Patients',
+						label: "Total Patients",
 						value: mockPatients.length,
-						sub: `${mockPatients.filter((p) => p.status === 'Active').length} active`,
-						color: 'bg-sky-50 text-sky-700 border-sky-200',
+						sub: `${mockPatients.filter((p) => p.status === "Active").length} active`,
+						color: "bg-sky-50 text-sky-700 border-sky-200",
 						icon: FaUserInjured,
 					},
 					{
-						label: 'Total Prescriptions',
+						label: "Total Prescriptions",
 						value: mockPrescriptions.length,
-						sub: `${mockPrescriptions.filter((p) => p.status === 'Active').length} active`,
-						color: 'bg-violet-50 text-violet-700 border-violet-200',
+						sub: `${mockPrescriptions.filter((p) => p.status === "Active").length} active`,
+						color: "bg-violet-50 text-violet-700 border-violet-200",
 						icon: FaNotesMedical,
 					},
 					{
-						label: 'Total Appointments',
+						label: "Total Appointments",
 						value: mockAppointments.length,
-						sub: `${mockAppointments.filter((a) => a.status === 'Completed').length} completed`,
-						color: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+						sub: `${mockAppointments.filter((a) => a.status === "Completed").length} completed`,
+						color: "bg-emerald-50 text-emerald-700 border-emerald-200",
 						icon: FaChartBar,
 					},
 					{
-						label: 'Completion Rate',
-						value: `${Math.round((mockAppointments.filter((a) => a.status === 'Completed').length / mockAppointments.length) * 100)}%`,
-						sub: 'Appointment success rate',
-						color: 'bg-amber-50 text-amber-700 border-amber-200',
+						label: "Completion Rate",
+						value: `${Math.round((mockAppointments.filter((a) => a.status === "Completed").length / mockAppointments.length) * 100)}%`,
+						sub: "Appointment success rate",
+						color: "bg-amber-50 text-amber-700 border-amber-200",
 						icon: FaChartBar,
 					},
 				].map(({ label, value, sub, color, icon: Icon }) => (
@@ -158,23 +158,23 @@ export default function ReportsPage() {
 						<CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
 						<XAxis
 							dataKey="month"
-							tick={{ fontSize: 11, fill: '#9ca3af' }}
+							tick={{ fontSize: 11, fill: "#9ca3af" }}
 							axisLine={false}
 							tickLine={false}
 						/>
 						<YAxis
-							tick={{ fontSize: 11, fill: '#9ca3af' }}
+							tick={{ fontSize: 11, fill: "#9ca3af" }}
 							axisLine={false}
 							tickLine={false}
 						/>
 						<Tooltip
 							contentStyle={{
-								borderRadius: '12px',
-								border: '1px solid #f0f0f0',
+								borderRadius: "12px",
+								border: "1px solid #f0f0f0",
 								fontSize: 12,
 							}}
 						/>
-						<Legend wrapperStyle={{ fontSize: '12px' }} />
+						<Legend wrapperStyle={{ fontSize: "12px" }} />
 						<Line
 							type="monotone"
 							dataKey="patients"
@@ -211,34 +211,34 @@ export default function ReportsPage() {
 				<div className="flex border-b border-gray-100">
 					{(
 						[
-							['patients', 'Patient Report', FaUserInjured],
-							['prescriptions', 'Prescription Report', FaNotesMedical],
+							["patients", "Patient Report", FaUserInjured],
+							["prescriptions", "Prescription Report", FaNotesMedical],
 						] as const
 					).map(([id, label, Icon]) => (
 						<button
 							key={id}
-							onClick={() => setActiveTab(id as 'patients' | 'prescriptions')}
-							className={`flex items-center gap-2 px-5 py-3.5 text-sm font-medium border-b-2 transition-colors ${activeTab === id ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+							onClick={() => setActiveTab(id as "patients" | "prescriptions")}
+							className={`flex items-center gap-2 px-5 py-3.5 text-sm font-medium border-b-2 transition-colors ${activeTab === id ? "border-primary-600 text-primary-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}
 						>
 							<Icon className="h-3.5 w-3.5" /> {label}
 						</button>
 					))}
 				</div>
 
-				{activeTab === 'patients' && (
+				{activeTab === "patients" && (
 					<div className="overflow-x-auto">
 						<table className="w-full text-sm">
 							<thead>
 								<tr className="border-b border-gray-100">
 									{[
-										'ID',
-										'Name',
-										'Age',
-										'Gender',
-										'Blood Group',
-										'Status',
-										'Registered',
-										'Last Visit',
+										"ID",
+										"Name",
+										"Age",
+										"Gender",
+										"Blood Group",
+										"Status",
+										"Registered",
+										"Last Visit",
 									].map((h) => (
 										<th
 											key={h}
@@ -268,7 +268,7 @@ export default function ReportsPage() {
 										</td>
 										<td className="px-4 py-3">
 											<span
-												className={`text-xs font-medium px-2 py-1 rounded-full ${p.status === 'Active' ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-600'}`}
+												className={`text-xs font-medium px-2 py-1 rounded-full ${p.status === "Active" ? "bg-emerald-50 text-emerald-700" : "bg-gray-100 text-gray-600"}`}
 											>
 												{p.status}
 											</span>
@@ -277,7 +277,7 @@ export default function ReportsPage() {
 											{p.registeredDate}
 										</td>
 										<td className="px-4 py-3 text-gray-500 text-xs">
-											{p.lastVisit || '—'}
+											{p.lastVisit || "—"}
 										</td>
 									</tr>
 								))}
@@ -286,19 +286,19 @@ export default function ReportsPage() {
 					</div>
 				)}
 
-				{activeTab === 'prescriptions' && (
+				{activeTab === "prescriptions" && (
 					<div className="overflow-x-auto">
 						<table className="w-full text-sm">
 							<thead>
 								<tr className="border-b border-gray-100">
 									{[
-										'Rx ID',
-										'Patient',
-										'Doctor',
-										'Date',
-										'Diagnosis',
-										'Medicines',
-										'Status',
+										"Rx ID",
+										"Patient",
+										"Doctor",
+										"Date",
+										"Diagnosis",
+										"Medicines",
+										"Status",
 									].map((h) => (
 										<th
 											key={h}
@@ -331,7 +331,7 @@ export default function ReportsPage() {
 										</td>
 										<td className="px-4 py-3">
 											<span
-												className={`text-xs font-medium px-2 py-1 rounded-full ${p.status === 'Active' ? 'bg-emerald-50 text-emerald-700' : p.status === 'Completed' ? 'bg-sky-50 text-sky-700' : 'bg-rose-50 text-rose-700'}`}
+												className={`text-xs font-medium px-2 py-1 rounded-full ${p.status === "Active" ? "bg-emerald-50 text-emerald-700" : p.status === "Completed" ? "bg-sky-50 text-sky-700" : "bg-rose-50 text-rose-700"}`}
 											>
 												{p.status}
 											</span>

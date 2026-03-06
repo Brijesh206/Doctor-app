@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 import {
 	FaBars,
 	FaBell,
@@ -7,9 +7,9 @@ import {
 	FaSearch,
 	FaSignOutAlt,
 	FaUserCircle,
-} from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 interface NavbarProps {
 	onMenuClick: () => void;
@@ -30,13 +30,13 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
 				setDropdownOpen(false);
 			}
 		};
-		document.addEventListener('mousedown', handler);
-		return () => document.removeEventListener('mousedown', handler);
+		document.addEventListener("mousedown", handler);
+		return () => document.removeEventListener("mousedown", handler);
 	}, []);
 
 	const handleLogout = () => {
 		logout();
-		navigate('/login');
+		navigate("/login");
 	};
 
 	return (
@@ -76,20 +76,20 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
 						<div className="h-8 w-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl flex items-center justify-center">
 							<span className="text-white text-xs font-bold">
 								{user?.name
-									?.split(' ')
+									?.split(" ")
 									.map((n) => n[0])
-									.join('')
+									.join("")
 									.slice(0, 2)}
 							</span>
 						</div>
 						<div className="hidden md:block text-left">
 							<p className="text-sm font-semibold text-gray-900 leading-tight">
-								{user?.name || 'Admin'}
+								{user?.name || "Admin"}
 							</p>
 							<p className="text-xs text-gray-500">{user?.role}</p>
 						</div>
 						<FaChevronDown
-							className={`h-3 w-3 text-gray-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+							className={`h-3 w-3 text-gray-400 transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
 						/>
 					</button>
 
@@ -103,7 +103,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
 							</div>
 							<button
 								onClick={() => {
-									navigate('/settings');
+									navigate("/settings");
 									setDropdownOpen(false);
 								}}
 								className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
@@ -113,7 +113,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
 							</button>
 							<button
 								onClick={() => {
-									navigate('/settings');
+									navigate("/settings");
 									setDropdownOpen(false);
 								}}
 								className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"

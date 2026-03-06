@@ -1,22 +1,17 @@
 {
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "test": "turbo test",
-    "lint": "turbo run lint",
-    "format": "turbo run format"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.4.5",
-    "turbo": "^2.8.13"
-  },
-  "packageManager": "npm@10.9.3",
-  "dependencies": {
-    "@swc/cli": "^0.8.0"
-  }
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.6",
+		"turbo": "^2.8.13"
+	},
+	"scripts": {
+		"dev": "npx turbo run dev",
+		"build": "npx turbo run build",
+		"test": "npx turbo run test",
+		"check": "biome check . --write"
+	},
+	"workspaces": [
+		"apps/*"
+	],
+	"packageManager": "npm@11.9.0"
 }

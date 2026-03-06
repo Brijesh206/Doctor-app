@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import type React from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import {
 	FaArrowLeft,
 	FaCheckCircle,
 	FaEnvelope,
 	FaHospital,
-} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function ForgotPasswordPage() {
-	const [email, setEmail] = useState('');
+	const [email, setEmail] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [sent, setSent] = useState(false);
 
@@ -19,7 +20,7 @@ export default function ForgotPasswordPage() {
 		setLoading(true);
 		await new Promise((r) => setTimeout(r, 1000));
 		setSent(true);
-		toast.success('Reset link sent!');
+		toast.success("Reset link sent!");
 		setLoading(false);
 	};
 
@@ -88,7 +89,7 @@ export default function ForgotPasswordPage() {
 									{loading ? (
 										<span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
 									) : (
-										'Send Reset Link'
+										"Send Reset Link"
 									)}
 								</button>
 							</form>
