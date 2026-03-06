@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import {
 	FaEdit,
 	FaEye,
@@ -9,30 +9,30 @@ import {
 	FaSearch,
 	FaTrash,
 	FaUserInjured,
-} from 'react-icons/fa';
-import Badge from '../../components/ui/Badge';
-import Button from '../../components/ui/Button';
-import Modal from '../../components/ui/Modal';
-import Pagination from '../../components/ui/Pagination';
-import Table from '../../components/ui/Table';
-import type { Patient } from '../../types';
-import { mockPatients } from '../../utils/mockData';
+} from "react-icons/fa";
+import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
+import Modal from "../../components/ui/Modal";
+import Pagination from "../../components/ui/Pagination";
+import Table from "../../components/ui/Table";
+import type { Patient } from "../../types";
+import { mockPatients } from "../../utils/mockData";
 
 const ITEMS_PER_PAGE = 8;
 
-type FilterStatus = 'All' | 'Active' | 'Inactive';
+type FilterStatus = "All" | "Active" | "Inactive";
 
 export default function PatientsPage() {
 	const [patients, setPatients] = useState<Patient[]>(mockPatients);
-	const [search, setSearch] = useState('');
-	const [filterStatus, setFilterStatus] = useState<FilterStatus>('All');
+	const [search, setSearch] = useState("");
+	const [filterStatus, setFilterStatus] = useState<FilterStatus>("All");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [editPatient, setEditPatient] = useState<Patient | null>(null);
 	const [viewPatient, setViewPatient] = useState<Patient | null>(null);
 	const [deleteConfirm, setDeleteConfirm] = useState<Patient | null>(null);
 	const { register, handleSubmit, reset, setValue } =
-		useForm<Omit<Patient, 'id' | 'registeredDate'>>();
+		useForm<Omit<Patient, "id" | "registeredDate">>();
 
 	const filtered = useMemo(
 		() =>
@@ -41,7 +41,7 @@ export default function PatientsPage() {
 					p.name.toLowerCase().includes(search.toLowerCase()) ||
 					p.email.toLowerCase().includes(search.toLowerCase()) ||
 					p.id.toLowerCase().includes(search.toLowerCase());
-				const matchStatus = filterStatus === 'All' || p.status === filterStatus;
+				const matchStatus = filterStatus === "All" || p.status === filterStatus;
 				return matchSearch && matchStatus;
 			}),
 		[patients, search, filterStatus],
@@ -60,62 +60,62 @@ export default function PatientsPage() {
 	};
 	const openEdit = (p: Patient) => {
 		setEditPatient(p);
-		setValue('name', p.name);
-		setValue('email', p.email);
-		setValue('phone', p.phone);
-		setValue('address', p.address);
-		setValue('age', p.age);
-		setValue('gender', p.gender);
-		setValue('bloodGroup', p.bloodGroup);
-		setValue('status', p.status);
-		setValue('lastVisit', p.lastVisit);
+		setValue("name", p.name);
+		setValue("email", p.email);
+		setValue("phone", p.phone);
+		setValue("address", p.address);
+		setValue("age", p.age);
+		setValue("gender", p.gender);
+		setValue("bloodGroup", p.bloodGroup);
+		setValue("status", p.status);
+		setValue("lastVisit", p.lastVisit);
 		setModalOpen(true);
 	};
 
-	const onSubmit = (data: Omit<Patient, 'id' | 'registeredDate'>) => {
+	const onSubmit = (data: Omit<Patient, "id" | "registeredDate">) => {
 		if (editPatient) {
 			setPatients((ps) =>
 				ps.map((p) => (p.id === editPatient.id ? { ...p, ...data } : p)),
 			);
-			toast.success('Patient updated successfully');
+			toast.success("Patient updated successfully");
 		} else {
 			const newPatient: Patient = {
 				...data,
-				id: `P${(patients.length + 1).toString().padStart(3, '0')}`,
-				registeredDate: new Date().toISOString().split('T')[0],
-				lastVisit: '',
+				id: `P${(patients.length + 1).toString().padStart(3, "0")}`,
+				registeredDate: new Date().toISOString().split("T")[0],
+				lastVisit: "",
 			} as Patient;
 			setPatients((ps) => [newPatient, ...ps]);
-			toast.success('Patient added successfully');
+			toast.success("Patient added successfully");
 		}
 		setModalOpen(false);
 	};
 
 	const handleDelete = (p: Patient) => {
 		setPatients((ps) => ps.filter((x) => x.id !== p.id));
-		toast.success('Patient removed');
+		toast.success("Patient removed");
 		setDeleteConfirm(null);
 	};
 
 	const columns = [
 		{
-			key: 'id',
-			header: 'Patient ID',
+			key: "id",
+			header: "Patient ID",
 			render: (p: Patient) => (
 				<span className="font-mono text-xs text-gray-500">{p.id}</span>
 			),
 		},
 		{
-			key: 'name',
-			header: 'Patient',
+			key: "name",
+			header: "Patient",
 			render: (p: Patient) => (
 				<div className="flex items-center gap-2.5">
 					<div className="h-8 w-8 rounded-xl bg-primary-100 flex items-center justify-center text-primary-700 text-xs font-bold">
 						{p.name
-							.split(' ')
+							.split(" ")
 							.map((n) => n[0])
 							.slice(0, 2)
-							.join('')}
+							.join("")}
 					</div>
 					<div>
 						<p className="text-sm font-semibold text-gray-900">{p.name}</p>
@@ -125,8 +125,8 @@ export default function PatientsPage() {
 			),
 		},
 		{
-			key: 'age',
-			header: 'Age / Gender',
+			key: "age",
+			header: "Age / Gender",
 			render: (p: Patient) => (
 				<span className="text-sm">
 					{p.age}y · {p.gender}
@@ -134,8 +134,8 @@ export default function PatientsPage() {
 			),
 		},
 		{
-			key: 'bloodGroup',
-			header: 'Blood',
+			key: "bloodGroup",
+			header: "Blood",
 			render: (p: Patient) => (
 				<span className="font-mono text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-1 rounded-lg">
 					{p.bloodGroup}
@@ -143,24 +143,24 @@ export default function PatientsPage() {
 			),
 		},
 		{
-			key: 'phone',
-			header: 'Phone',
+			key: "phone",
+			header: "Phone",
 			render: (p: Patient) => (
 				<span className="text-sm text-gray-600">{p.phone}</span>
 			),
 		},
 		{
-			key: 'status',
-			header: 'Status',
+			key: "status",
+			header: "Status",
 			render: (p: Patient) => (
-				<Badge variant={p.status === 'Active' ? 'success' : 'neutral'} dot>
+				<Badge variant={p.status === "Active" ? "success" : "neutral"} dot>
 					{p.status}
 				</Badge>
 			),
 		},
 		{
-			key: 'actions',
-			header: 'Actions',
+			key: "actions",
+			header: "Actions",
 			render: (p: Patient) => (
 				<div className="flex items-center gap-1">
 					<button
@@ -217,14 +217,14 @@ export default function PatientsPage() {
 					</div>
 					<div className="flex items-center gap-2">
 						<FaFilter className="h-3.5 w-3.5 text-gray-400" />
-						{(['All', 'Active', 'Inactive'] as FilterStatus[]).map((s) => (
+						{(["All", "Active", "Inactive"] as FilterStatus[]).map((s) => (
 							<button
 								key={s}
 								onClick={() => {
 									setFilterStatus(s);
 									setCurrentPage(1);
 								}}
-								className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${filterStatus === s ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+								className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${filterStatus === s ? "bg-primary-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
 							>
 								{s}
 							</button>
@@ -252,7 +252,7 @@ export default function PatientsPage() {
 			<Modal
 				isOpen={modalOpen}
 				onClose={() => setModalOpen(false)}
-				title={editPatient ? 'Edit Patient' : 'Add New Patient'}
+				title={editPatient ? "Edit Patient" : "Add New Patient"}
 				size="lg"
 				footer={
 					<>
@@ -260,7 +260,7 @@ export default function PatientsPage() {
 							Cancel
 						</Button>
 						<Button onClick={handleSubmit(onSubmit)}>
-							{editPatient ? 'Save Changes' : 'Add Patient'}
+							{editPatient ? "Save Changes" : "Add Patient"}
 						</Button>
 					</>
 				}
@@ -268,25 +268,25 @@ export default function PatientsPage() {
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 					{[
 						{
-							name: 'name' as const,
-							label: 'Full Name',
-							placeholder: 'James Harrington',
+							name: "name" as const,
+							label: "Full Name",
+							placeholder: "James Harrington",
 						},
 						{
-							name: 'email' as const,
-							label: 'Email',
-							type: 'email',
-							placeholder: 'patient@email.com',
+							name: "email" as const,
+							label: "Email",
+							type: "email",
+							placeholder: "patient@email.com",
 						},
 						{
-							name: 'phone' as const,
-							label: 'Phone',
-							placeholder: '+1 555-0100',
+							name: "phone" as const,
+							label: "Phone",
+							placeholder: "+1 555-0100",
 						},
 						{
-							name: 'address' as const,
-							label: 'Address',
-							placeholder: '123 Oak St',
+							name: "address" as const,
+							label: "Address",
+							placeholder: "123 Oak St",
 						},
 					].map((f) => (
 						<div key={f.name}>
@@ -295,7 +295,7 @@ export default function PatientsPage() {
 							</label>
 							<input
 								{...register(f.name)}
-								type={f.type || 'text'}
+								type={f.type || "text"}
 								placeholder={f.placeholder}
 								className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 							/>
@@ -306,7 +306,7 @@ export default function PatientsPage() {
 							Age
 						</label>
 						<input
-							{...register('age')}
+							{...register("age")}
 							type="number"
 							placeholder="30"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -317,7 +317,7 @@ export default function PatientsPage() {
 							Gender
 						</label>
 						<select
-							{...register('gender')}
+							{...register("gender")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
 							<option value="Male">Male</option>
@@ -330,10 +330,10 @@ export default function PatientsPage() {
 							Blood Group
 						</label>
 						<select
-							{...register('bloodGroup')}
+							{...register("bloodGroup")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
-							{['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((g) => (
+							{["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((g) => (
 								<option key={g} value={g}>
 									{g}
 								</option>
@@ -345,7 +345,7 @@ export default function PatientsPage() {
 							Status
 						</label>
 						<select
-							{...register('status')}
+							{...register("status")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
 							<option value="Active">Active</option>
@@ -372,10 +372,10 @@ export default function PatientsPage() {
 						<div className="flex items-center gap-4 p-4 bg-primary-50 rounded-xl">
 							<div className="h-14 w-14 rounded-2xl bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
 								{viewPatient.name
-									.split(' ')
+									.split(" ")
 									.map((n) => n[0])
 									.slice(0, 2)
-									.join('')}
+									.join("")}
 							</div>
 							<div>
 								<p className="text-lg font-bold text-gray-900">
@@ -384,7 +384,7 @@ export default function PatientsPage() {
 								<p className="text-sm text-gray-500">{viewPatient.id}</p>
 								<Badge
 									variant={
-										viewPatient.status === 'Active' ? 'success' : 'neutral'
+										viewPatient.status === "Active" ? "success" : "neutral"
 									}
 								>
 									{viewPatient.status}
@@ -393,14 +393,14 @@ export default function PatientsPage() {
 						</div>
 						<div className="grid grid-cols-2 gap-3">
 							{[
-								['Age', `${viewPatient.age} years`],
-								['Gender', viewPatient.gender],
-								['Blood Group', viewPatient.bloodGroup],
-								['Phone', viewPatient.phone],
-								['Email', viewPatient.email],
-								['Registered', viewPatient.registeredDate],
-								['Last Visit', viewPatient.lastVisit || 'N/A'],
-								['Address', viewPatient.address],
+								["Age", `${viewPatient.age} years`],
+								["Gender", viewPatient.gender],
+								["Blood Group", viewPatient.bloodGroup],
+								["Phone", viewPatient.phone],
+								["Email", viewPatient.email],
+								["Registered", viewPatient.registeredDate],
+								["Last Visit", viewPatient.lastVisit || "N/A"],
+								["Address", viewPatient.address],
 							].map(([k, v]) => (
 								<div key={k} className="bg-surface-secondary rounded-xl p-3">
 									<p className="text-xs text-gray-500">{k}</p>
@@ -439,7 +439,7 @@ export default function PatientsPage() {
 					}
 				>
 					<p className="text-sm text-gray-600">
-						Are you sure you want to remove{' '}
+						Are you sure you want to remove{" "}
 						<strong>{deleteConfirm.name}</strong>? This action cannot be undone.
 					</p>
 				</Modal>

@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { FaTimes } from 'react-icons/fa';
+import type React from "react";
+import { useEffect } from "react";
+import { FaTimes } from "react-icons/fa";
 
 interface ModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	title: string;
 	children: React.ReactNode;
-	size?: 'sm' | 'md' | 'lg' | 'xl';
+	size?: "sm" | "md" | "lg" | "xl";
 	footer?: React.ReactNode;
 }
 
@@ -15,32 +16,32 @@ export default function Modal({
 	onClose,
 	title,
 	children,
-	size = 'md',
+	size = "md",
 	footer,
 }: ModalProps) {
 	useEffect(() => {
-		if (isOpen) document.body.style.overflow = 'hidden';
-		else document.body.style.overflow = '';
+		if (isOpen) document.body.style.overflow = "hidden";
+		else document.body.style.overflow = "";
 		return () => {
-			document.body.style.overflow = '';
+			document.body.style.overflow = "";
 		};
 	}, [isOpen]);
 
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') onClose();
+			if (e.key === "Escape") onClose();
 		};
-		document.addEventListener('keydown', handler);
-		return () => document.removeEventListener('keydown', handler);
+		document.addEventListener("keydown", handler);
+		return () => document.removeEventListener("keydown", handler);
 	}, [onClose]);
 
 	if (!isOpen) return null;
 
 	const sizes = {
-		sm: 'max-w-sm',
-		md: 'max-w-lg',
-		lg: 'max-w-2xl',
-		xl: 'max-w-4xl',
+		sm: "max-w-sm",
+		md: "max-w-lg",
+		lg: "max-w-2xl",
+		xl: "max-w-4xl",
 	};
 
 	return (

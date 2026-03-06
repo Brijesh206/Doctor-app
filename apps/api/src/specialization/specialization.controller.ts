@@ -1,34 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SpecializationService } from './specialization.service';
-import { CreateSpecializationDto } from './dto/create-specialization.dto';
-import { UpdateSpecializationDto } from './dto/update-specialization.dto';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Patch,
+	Post,
+} from "@nestjs/common";
+import type { CreateSpecializationDto } from "./dto/create-specialization.dto";
+import type { UpdateSpecializationDto } from "./dto/update-specialization.dto";
+import type { SpecializationService } from "./specialization.service";
 
-@Controller('specialization')
+@Controller("specialization")
 export class SpecializationController {
-  constructor(private readonly specializationService: SpecializationService) {}
+	constructor(private readonly specializationService: SpecializationService) {}
 
-  @Post()
-  create(@Body() createSpecializationDto: CreateSpecializationDto) {
-    return this.specializationService.create(createSpecializationDto);
-  }
+	@Post()
+	create(@Body() createSpecializationDto: CreateSpecializationDto) {
+		return this.specializationService.create(createSpecializationDto);
+	}
 
-  @Get()
-  findAll() {
-    return this.specializationService.findAll();
-  }
+	@Get()
+	findAll() {
+		return this.specializationService.findAll();
+	}
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.specializationService.findOne(+id);
-  }
+	@Get(":id")
+	findOne(@Param("id") id: string) {
+		return this.specializationService.findOne(+id);
+	}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSpecializationDto: UpdateSpecializationDto) {
-    return this.specializationService.update(+id, updateSpecializationDto);
-  }
+	@Patch(":id")
+	update(
+		@Param("id") id: string,
+		@Body() updateSpecializationDto: UpdateSpecializationDto,
+	) {
+		return this.specializationService.update(+id, updateSpecializationDto);
+	}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.specializationService.remove(+id);
-  }
+	@Delete(":id")
+	remove(@Param("id") id: string) {
+		return this.specializationService.remove(+id);
+	}
 }

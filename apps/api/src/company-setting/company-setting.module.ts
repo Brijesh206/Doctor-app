@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { CompanySettingService } from './company-setting.service';
-import { CompanySettingController } from './company-setting.controller';
+import { Module } from "@nestjs/common";
+import { CompanySettingController } from "./company-setting.controller";
+import { CompanySettingService } from "./company-setting.service";
 
 @Module({
-  controllers: [CompanySettingController],
-  providers: [CompanySettingService],
+	controllers: [CompanySettingController],
+	providers: [CompanySettingService],
 })
 export class CompanySettingModule {}

@@ -1,36 +1,36 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { FaEdit, FaPlus, FaSearch, FaStar, FaTrash } from 'react-icons/fa';
-import Badge from '../../components/ui/Badge';
-import Button from '../../components/ui/Button';
-import Modal from '../../components/ui/Modal';
-import type { Doctor } from '../../types';
-import { mockDoctors } from '../../utils/mockData';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaEdit, FaPlus, FaSearch, FaStar, FaTrash } from "react-icons/fa";
+import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
+import Modal from "../../components/ui/Modal";
+import type { Doctor } from "../../types";
+import { mockDoctors } from "../../utils/mockData";
 
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const SPECIALIZATIONS = [
-	'Cardiologist',
-	'Neurologist',
-	'Pediatrician',
-	'Orthopedic',
-	'Dermatologist',
-	'General Physician',
-	'Gynecologist',
-	'Ophthalmologist',
-	'Psychiatrist',
-	'Radiologist',
+	"Cardiologist",
+	"Neurologist",
+	"Pediatrician",
+	"Orthopedic",
+	"Dermatologist",
+	"General Physician",
+	"Gynecologist",
+	"Ophthalmologist",
+	"Psychiatrist",
+	"Radiologist",
 ];
 
-const statusVariant: Record<string, 'success' | 'warning' | 'neutral'> = {
-	Active: 'success',
-	'On Leave': 'warning',
-	Inactive: 'neutral',
+const statusVariant: Record<string, "success" | "warning" | "neutral"> = {
+	Active: "success",
+	"On Leave": "warning",
+	Inactive: "neutral",
 };
 
 export default function DoctorsPage() {
 	const [doctors, setDoctors] = useState<Doctor[]>(mockDoctors);
-	const [search, setSearch] = useState('');
+	const [search, setSearch] = useState("");
 	const [modalOpen, setModalOpen] = useState(false);
 	const [editDoc, setEditDoc] = useState<Doctor | null>(null);
 	const [deleteConfirm, setDeleteConfirm] = useState<Doctor | null>(null);
@@ -69,18 +69,18 @@ export default function DoctorsPage() {
 			setDoctors((ds) =>
 				ds.map((d) => (d.id === editDoc.id ? { ...d, ...docData } : d)),
 			);
-			toast.success('Doctor updated');
+			toast.success("Doctor updated");
 		} else {
 			setDoctors((ds) => [
 				{
 					...docData,
-					id: `D${(ds.length + 1).toString().padStart(3, '0')}`,
+					id: `D${(ds.length + 1).toString().padStart(3, "0")}`,
 					patients: 0,
 					rating: 4.5,
 				},
 				...ds,
 			]);
-			toast.success('Doctor added');
+			toast.success("Doctor added");
 		}
 		setModalOpen(false);
 	};
@@ -121,11 +121,11 @@ export default function DoctorsPage() {
 							<div className="flex items-center gap-3">
 								<div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-lg">
 									{doc.name
-										.replace('Dr. ', '')
-										.split(' ')
+										.replace("Dr. ", "")
+										.split(" ")
 										.map((n) => n[0])
 										.slice(0, 2)
-										.join('')}
+										.join("")}
 								</div>
 								<div>
 									<p className="text-sm font-bold text-gray-900">{doc.name}</p>
@@ -175,7 +175,7 @@ export default function DoctorsPage() {
 								{DAYS.map((day) => (
 									<span
 										key={day}
-										className={`text-xs px-2 py-0.5 rounded-lg font-medium ${doc.availability.includes(day) ? 'bg-primary-100 text-primary-700' : 'bg-gray-100 text-gray-400'}`}
+										className={`text-xs px-2 py-0.5 rounded-lg font-medium ${doc.availability.includes(day) ? "bg-primary-100 text-primary-700" : "bg-gray-100 text-gray-400"}`}
 									>
 										{day}
 									</span>
@@ -209,7 +209,7 @@ export default function DoctorsPage() {
 			<Modal
 				isOpen={modalOpen}
 				onClose={() => setModalOpen(false)}
-				title={editDoc ? 'Edit Doctor' : 'Add Doctor'}
+				title={editDoc ? "Edit Doctor" : "Add Doctor"}
 				size="lg"
 				footer={
 					<>
@@ -217,7 +217,7 @@ export default function DoctorsPage() {
 							Cancel
 						</Button>
 						<Button onClick={handleSubmit(onSubmit)}>
-							{editDoc ? 'Save' : 'Add Doctor'}
+							{editDoc ? "Save" : "Add Doctor"}
 						</Button>
 					</>
 				}
@@ -228,7 +228,7 @@ export default function DoctorsPage() {
 							Full Name
 						</label>
 						<input
-							{...register('name')}
+							{...register("name")}
 							placeholder="Dr. Jane Smith"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						/>
@@ -238,7 +238,7 @@ export default function DoctorsPage() {
 							Specialization
 						</label>
 						<select
-							{...register('specialization')}
+							{...register("specialization")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
 							{SPECIALIZATIONS.map((s) => (
@@ -253,7 +253,7 @@ export default function DoctorsPage() {
 							Qualification
 						</label>
 						<input
-							{...register('qualification')}
+							{...register("qualification")}
 							placeholder="MD, FACC"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						/>
@@ -263,7 +263,7 @@ export default function DoctorsPage() {
 							Email
 						</label>
 						<input
-							{...register('email')}
+							{...register("email")}
 							type="email"
 							placeholder="doctor@mediadmin.com"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -274,7 +274,7 @@ export default function DoctorsPage() {
 							Phone
 						</label>
 						<input
-							{...register('phone')}
+							{...register("phone")}
 							placeholder="+1 555-0200"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						/>
@@ -284,7 +284,7 @@ export default function DoctorsPage() {
 							Experience (years)
 						</label>
 						<input
-							{...register('experience')}
+							{...register("experience")}
 							type="number"
 							placeholder="10"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -295,7 +295,7 @@ export default function DoctorsPage() {
 							Consultation Fee ($)
 						</label>
 						<input
-							{...register('consultationFee')}
+							{...register("consultationFee")}
 							type="number"
 							placeholder="200"
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -306,7 +306,7 @@ export default function DoctorsPage() {
 							Status
 						</label>
 						<select
-							{...register('status')}
+							{...register("status")}
 							className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
 						>
 							<option value="Active">Active</option>
@@ -324,7 +324,7 @@ export default function DoctorsPage() {
 									key={day}
 									type="button"
 									onClick={() => toggleDay(day)}
-									className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${selectedDays.includes(day) ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 border-gray-200 hover:border-primary-300'}`}
+									className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${selectedDays.includes(day) ? "bg-primary-600 text-white border-primary-600" : "bg-white text-gray-600 border-gray-200 hover:border-primary-300"}`}
 								>
 									{day}
 								</button>
@@ -356,7 +356,7 @@ export default function DoctorsPage() {
 										ds.filter((d) => d.id !== deleteConfirm.id),
 									);
 									setDeleteConfirm(null);
-									toast.success('Doctor removed');
+									toast.success("Doctor removed");
 								}}
 							>
 								Remove

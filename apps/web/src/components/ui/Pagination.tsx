@@ -1,6 +1,6 @@
-import clsx from 'clsx';
-import React from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import clsx from "clsx";
+import React from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface PaginationProps {
 	currentPage: number;
@@ -27,11 +27,11 @@ export default function Pagination({
 	return (
 		<div className="flex items-center justify-between px-1 py-3">
 			<p className="text-sm text-gray-500">
-				Showing{' '}
+				Showing{" "}
 				<span className="font-medium text-gray-700">
 					{startItem}–{endItem}
-				</span>{' '}
-				of <span className="font-medium text-gray-700">{totalItems}</span>{' '}
+				</span>{" "}
+				of <span className="font-medium text-gray-700">{totalItems}</span>{" "}
 				results
 			</p>
 			<div className="flex items-center gap-1">
@@ -53,10 +53,10 @@ export default function Pagination({
 							<button
 								onClick={() => onPageChange(page)}
 								className={clsx(
-									'min-w-[32px] h-8 px-2 rounded-lg text-sm font-medium transition-colors',
+									"min-w-[32px] h-8 px-2 rounded-lg text-sm font-medium transition-colors",
 									currentPage === page
-										? 'bg-primary-600 text-white shadow-sm'
-										: 'text-gray-600 hover:bg-gray-100',
+										? "bg-primary-600 text-white shadow-sm"
+										: "text-gray-600 hover:bg-gray-100",
 								)}
 							>
 								{page}

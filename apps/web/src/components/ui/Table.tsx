@@ -1,5 +1,5 @@
-import clsx from 'clsx';
-import React from 'react';
+import clsx from "clsx";
+import type React from "react";
 
 interface Column<T> {
 	key: keyof T | string;
@@ -45,7 +45,7 @@ function TableSkeleton({
 export default function Table<T extends { id?: string }>({
 	columns,
 	data,
-	emptyMessage = 'No records found',
+	emptyMessage = "No records found",
 	emptyIcon,
 	loading = false,
 	onRowClick,
@@ -59,7 +59,7 @@ export default function Table<T extends { id?: string }>({
 							<th
 								key={String(col.key)}
 								className={clsx(
-									'px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider',
+									"px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider",
 									col.className,
 								)}
 							>
@@ -85,23 +85,23 @@ export default function Table<T extends { id?: string }>({
 							<tr
 								key={row.id || index}
 								className={clsx(
-									'border-b border-gray-50 transition-colors duration-150',
+									"border-b border-gray-50 transition-colors duration-150",
 									onRowClick
-										? 'cursor-pointer hover:bg-primary-50/50'
-										: 'hover:bg-gray-50/50',
+										? "cursor-pointer hover:bg-primary-50/50"
+										: "hover:bg-gray-50/50",
 								)}
 								onClick={() => onRowClick?.(row)}
 							>
 								{columns.map((col) => (
 									<td
 										key={String(col.key)}
-										className={clsx('px-4 py-3.5 text-gray-700', col.className)}
+										className={clsx("px-4 py-3.5 text-gray-700", col.className)}
 									>
 										{col.render
 											? col.render(row)
 											: String(
 													(row as Record<string, unknown>)[col.key as string] ??
-														'',
+														"",
 												)}
 									</td>
 								))}

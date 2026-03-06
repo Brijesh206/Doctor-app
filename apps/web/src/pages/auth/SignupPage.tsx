@@ -1,23 +1,23 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { FaEnvelope, FaHospital, FaLock, FaUser } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
-import { useAuth } from '../../context/AuthContext';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaEnvelope, FaHospital, FaLock, FaUser } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { useAuth } from "../../context/AuthContext";
 
 const schema = yup.object({
-	name: yup.string().min(2, 'Min 2 characters').required('Name required'),
-	email: yup.string().email('Invalid email').required('Email required'),
+	name: yup.string().min(2, "Min 2 characters").required("Name required"),
+	email: yup.string().email("Invalid email").required("Email required"),
 	password: yup
 		.string()
-		.min(6, 'Min 6 characters')
-		.required('Password required'),
+		.min(6, "Min 6 characters")
+		.required("Password required"),
 	confirmPassword: yup
 		.string()
-		.oneOf([yup.ref('password')], 'Passwords must match')
-		.required('Confirm your password'),
+		.oneOf([yup.ref("password")], "Passwords must match")
+		.required("Confirm your password"),
 });
 type FormData = {
 	name: string;
@@ -41,10 +41,10 @@ export default function SignupPage() {
 		try {
 			await new Promise((r) => setTimeout(r, 800));
 			await login(data.email, data.password);
-			toast.success('Account created successfully!');
-			navigate('/dashboard');
+			toast.success("Account created successfully!");
+			navigate("/dashboard");
 		} catch {
-			toast.error('Signup failed. Please try again.');
+			toast.error("Signup failed. Please try again.");
 		} finally {
 			setLoading(false);
 		}
@@ -79,7 +79,7 @@ export default function SignupPage() {
 							<div className="relative">
 								<FaUser className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 								<input
-									{...register('name')}
+									{...register("name")}
 									type="text"
 									placeholder="Dr. John Smith"
 									className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all hover:border-gray-300"
@@ -98,7 +98,7 @@ export default function SignupPage() {
 							<div className="relative">
 								<FaEnvelope className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 								<input
-									{...register('email')}
+									{...register("email")}
 									type="email"
 									placeholder="admin@hospital.com"
 									className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all hover:border-gray-300"
@@ -117,7 +117,7 @@ export default function SignupPage() {
 							<div className="relative">
 								<FaLock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 								<input
-									{...register('password')}
+									{...register("password")}
 									type="password"
 									placeholder="Min 6 characters"
 									className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all hover:border-gray-300"
@@ -136,7 +136,7 @@ export default function SignupPage() {
 							<div className="relative">
 								<FaLock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
 								<input
-									{...register('confirmPassword')}
+									{...register("confirmPassword")}
 									type="password"
 									placeholder="Repeat your password"
 									className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all hover:border-gray-300"
@@ -156,12 +156,12 @@ export default function SignupPage() {
 							{loading ? (
 								<span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
 							) : (
-								'Create Account'
+								"Create Account"
 							)}
 						</button>
 					</form>
 					<p className="mt-6 text-center text-sm text-gray-500">
-						Already have an account?{' '}
+						Already have an account?{" "}
 						<Link
 							to="/login"
 							className="text-primary-600 hover:text-primary-700 font-semibold"

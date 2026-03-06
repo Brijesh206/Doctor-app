@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from "react";
 import {
 	FaArrowUp,
 	FaCalendarAlt,
@@ -7,7 +7,7 @@ import {
 	FaNotesMedical,
 	FaUserInjured,
 	FaUserMd,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 import {
 	Area,
 	AreaChart,
@@ -21,46 +21,46 @@ import {
 	Tooltip,
 	XAxis,
 	YAxis,
-} from 'recharts';
-import Badge from '../../components/ui/Badge';
+} from "recharts";
+import Badge from "../../components/ui/Badge";
 import {
 	chartData,
 	mockActivity,
 	mockAppointments,
-} from '../../utils/mockData';
+} from "../../utils/mockData";
 
 const stats = [
 	{
-		label: 'Total Patients',
-		value: '267',
-		change: '+12 this month',
+		label: "Total Patients",
+		value: "267",
+		change: "+12 this month",
 		icon: FaUserInjured,
-		color: 'bg-sky-50 text-sky-600',
-		trend: 'up',
+		color: "bg-sky-50 text-sky-600",
+		trend: "up",
 	},
 	{
-		label: 'Total Doctors',
-		value: '6',
-		change: '1 on leave',
+		label: "Total Doctors",
+		value: "6",
+		change: "1 on leave",
 		icon: FaUserMd,
-		color: 'bg-violet-50 text-violet-600',
-		trend: 'neutral',
+		color: "bg-violet-50 text-violet-600",
+		trend: "neutral",
 	},
 	{
-		label: 'Prescriptions',
-		value: '48',
-		change: '+8 this week',
+		label: "Prescriptions",
+		value: "48",
+		change: "+8 this week",
 		icon: FaNotesMedical,
-		color: 'bg-emerald-50 text-emerald-600',
-		trend: 'up',
+		color: "bg-emerald-50 text-emerald-600",
+		trend: "up",
 	},
 	{
-		label: 'Appointments Today',
-		value: '4',
-		change: '2 confirmed',
+		label: "Appointments Today",
+		value: "4",
+		change: "2 confirmed",
 		icon: FaCalendarCheck,
-		color: 'bg-amber-50 text-amber-600',
-		trend: 'neutral',
+		color: "bg-amber-50 text-amber-600",
+		trend: "neutral",
 	},
 ];
 
@@ -73,25 +73,25 @@ const activityIcons: Record<string, React.ReactNode> = {
 };
 
 const activityColors: Record<string, string> = {
-	calendar: 'bg-sky-100 text-sky-600',
-	patient: 'bg-emerald-100 text-emerald-600',
-	prescription: 'bg-violet-100 text-violet-600',
-	medicine: 'bg-amber-100 text-amber-600',
-	doctor: 'bg-rose-100 text-rose-600',
+	calendar: "bg-sky-100 text-sky-600",
+	patient: "bg-emerald-100 text-emerald-600",
+	prescription: "bg-violet-100 text-violet-600",
+	medicine: "bg-amber-100 text-amber-600",
+	doctor: "bg-rose-100 text-rose-600",
 };
 
 const appointmentStatusVariant: Record<
 	string,
-	'success' | 'warning' | 'info' | 'danger' | 'neutral'
+	"success" | "warning" | "info" | "danger" | "neutral"
 > = {
-	Confirmed: 'success',
-	Pending: 'warning',
-	Completed: 'info',
-	Cancelled: 'danger',
+	Confirmed: "success",
+	Pending: "warning",
+	Completed: "info",
+	Cancelled: "danger",
 };
 
 export default function DashboardPage() {
-	const todayAppts = mockAppointments.filter((a) => a.date === '2025-03-05');
+	const todayAppts = mockAppointments.filter((a) => a.date === "2025-03-05");
 
 	return (
 		<div className="space-y-6">
@@ -116,7 +116,7 @@ export default function DashboardPage() {
 							>
 								<Icon className="h-5 w-5" />
 							</div>
-							{trend === 'up' && (
+							{trend === "up" && (
 								<span className="flex items-center gap-1 text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-1 rounded-lg">
 									<FaArrowUp className="h-2.5 w-2.5" /> Up
 								</span>
@@ -158,19 +158,19 @@ export default function DashboardPage() {
 							<CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
 							<XAxis
 								dataKey="month"
-								tick={{ fontSize: 11, fill: '#9ca3af' }}
+								tick={{ fontSize: 11, fill: "#9ca3af" }}
 								axisLine={false}
 								tickLine={false}
 							/>
 							<YAxis
-								tick={{ fontSize: 11, fill: '#9ca3af' }}
+								tick={{ fontSize: 11, fill: "#9ca3af" }}
 								axisLine={false}
 								tickLine={false}
 							/>
 							<Tooltip
 								contentStyle={{
-									borderRadius: '12px',
-									border: '1px solid #f0f0f0',
+									borderRadius: "12px",
+									border: "1px solid #f0f0f0",
 									fontSize: 12,
 								}}
 							/>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
 								stroke="#0ea5e9"
 								strokeWidth={2.5}
 								fill="url(#patientGrad)"
-								dot={{ fill: '#0ea5e9', r: 4 }}
+								dot={{ fill: "#0ea5e9", r: 4 }}
 								activeDot={{ r: 6 }}
 							/>
 						</AreaChart>
@@ -208,7 +208,7 @@ export default function DashboardPage() {
 									<Cell key={i} fill={entry.color} />
 								))}
 							</Pie>
-							<Tooltip contentStyle={{ borderRadius: '10px', fontSize: 12 }} />
+							<Tooltip contentStyle={{ borderRadius: "10px", fontSize: 12 }} />
 						</PieChart>
 					</ResponsiveContainer>
 					<div className="space-y-2 mt-2">
@@ -251,22 +251,22 @@ export default function DashboardPage() {
 							<CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
 							<XAxis
 								dataKey="day"
-								tick={{ fontSize: 11, fill: '#9ca3af' }}
+								tick={{ fontSize: 11, fill: "#9ca3af" }}
 								axisLine={false}
 								tickLine={false}
 							/>
 							<YAxis
-								tick={{ fontSize: 11, fill: '#9ca3af' }}
+								tick={{ fontSize: 11, fill: "#9ca3af" }}
 								axisLine={false}
 								tickLine={false}
 							/>
 							<Tooltip
 								contentStyle={{
-									borderRadius: '12px',
-									border: '1px solid #f0f0f0',
+									borderRadius: "12px",
+									border: "1px solid #f0f0f0",
 									fontSize: 12,
 								}}
-								cursor={{ fill: '#f0f9ff' }}
+								cursor={{ fill: "#f0f9ff" }}
 							/>
 							<Bar
 								dataKey="appointments"
@@ -330,7 +330,7 @@ export default function DashboardPage() {
 							className="flex items-start gap-3 py-3 border-b border-gray-50 last:border-0"
 						>
 							<div
-								className={`h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0 ${activityColors[item.icon] || 'bg-gray-100 text-gray-500'}`}
+								className={`h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0 ${activityColors[item.icon] || "bg-gray-100 text-gray-500"}`}
 							>
 								{activityIcons[item.icon]}
 							</div>

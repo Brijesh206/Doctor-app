@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { DegreeService } from './degree.service';
+import { Test, type TestingModule } from "@nestjs/testing";
+import { DegreeService } from "./degree.service";
 
-describe('DegreeService', () => {
-  let service: DegreeService;
+describe("DegreeService", () => {
+	let service: DegreeService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [DegreeService],
-    }).compile();
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			providers: [DegreeService],
+		}).compile();
 
-    service = module.get<DegreeService>(DegreeService);
-  });
+		service = module.get<DegreeService>(DegreeService);
+	});
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+	it("should be defined", () => {
+		expect(service).toBeDefined();
+	});
 });
